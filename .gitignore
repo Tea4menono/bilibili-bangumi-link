@@ -5,7 +5,6 @@ __pycache__/
 *.pyd
 *.so
 
-curl.txt
 
 # Virtual environment folders
 venv/
@@ -52,3 +51,5 @@ htmlcov/
 
 # Ignore compiled C extensions
 build/
+
+curl.txt
