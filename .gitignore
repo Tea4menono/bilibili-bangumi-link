@@ -1,0 +1,52 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environment folders
+venv/
+.env/
+.venv/
+
+# Pyenv local version file
+.python-version
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Logs & local files
+*.log
+*.tmp
+*.swp
+
+# VSCode settings
+.vscode/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Python virtualenv tools
+pip-wheel-metadata/
+
+# Coverage / testing artifacts
+htmlcov/
+.coverage
+.tox/
+.pytest_cache/
+.nox/
+
+# Jupyter notebook checkpoints (if needed)
+.ipynb_checkpoints/
+
+# Ignore environment-specific configs
+.envrc
+.env.*
+
+# Ignore compiled C extensions
+build/
