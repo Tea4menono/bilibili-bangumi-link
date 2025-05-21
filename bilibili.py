@@ -6,18 +6,15 @@ from urllib.parse import urlparse, parse_qs
 def extract_cookies_from_url(url):
     parsed = urlparse(url)
     query = parse_qs(parsed.query)
-
     cookies = {
         "DedeUserID": query.get("DedeUserID", [""])[0],
         "SESSDATA": query.get("SESSDATA", [""])[0],
         "bili_jct": query.get("bili_jct", [""])[0],
     }
-
     return cookies
 
 def send_request_with_cookies(cookies, vmid):
     url = 'https://api.bilibili.com/x/space/bangumi/follow/list'
-
     params = {
         'vmid': vmid,
         'type': 1,
@@ -27,19 +24,15 @@ def send_request_with_cookies(cookies, vmid):
         'follow_status': 0,
         'web_location': '333.1387'
     }
-
     headers = {
         'User-Agent': 'Mozilla/5.0',
         'Referer': f'https://space.bilibili.com/{vmid}/bangumi',
         'Origin': 'https://space.bilibili.com',
     }
-
     response = requests.get(url, headers=headers, params=params, cookies=cookies)
-
     if response.status_code != 200:
         print(f"Error: {response.status_code}")
         return None
-
     return response.json()
 
 def get_qr_login_url():
@@ -49,8 +42,7 @@ def get_qr_login_url():
         "Origin": "https://www.bilibili.com",
     }
     resp = requests.get("https://passport.bilibili.com/qrcode/getLoginUrl", headers=headers)
-
-    resp.raise_for_status()  # 报错时能更清楚原因
+    resp.raise_for_status()
     data = resp.json()['data']
     return data['url'], data['oauthKey']
 
@@ -66,9 +58,7 @@ def wait_for_login(oauthKey):
         "Referer": "https://www.bilibili.com/",
         "User-Agent": "Mozilla/5.0"
     }
-
     print("⌛ 等待扫码并确认登录（120秒内）...")
-
     for _ in range(60):  # 等待总时长 120 秒，每次 sleep 2 秒
         time.sleep(2)
         poll_url = f"https://passport.bilibili.com/x/passport-login/web/qrcode/poll?qrcode_key={oauthKey}&source=main-fe-header&web_location=333.1007"
@@ -79,8 +69,6 @@ def wait_for_login(oauthKey):
         if code == 0:
             print("✅ 登录成功！")
             return result.get("url")
-        elif code == 86101:
-            print("📷 尚未扫码...")
         elif code == 86090:
             print("⚠️ 已扫码，等待确认...")
         elif code == 86038:
